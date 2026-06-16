@@ -11,7 +11,6 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
 model User {
   id           String   @id @default(uuid())
   fullName     String   @map("full_name") @db.VarChar(60)

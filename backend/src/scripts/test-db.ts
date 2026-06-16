@@ -1,4 +1,4 @@
-import { connectDatabase, prismaClient } from "./database/prismaClient";
+import { connectDatabase, prismaClient } from "../database/prismaClient";
 
 async function run(): Promise<void> {
   await connectDatabase();

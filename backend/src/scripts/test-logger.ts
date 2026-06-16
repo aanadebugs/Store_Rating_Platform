@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-import { logger } from "./utils/logger";
+import { logger } from "../utils/logger";
 
 logger.info("Logger initialized successfully");
 
