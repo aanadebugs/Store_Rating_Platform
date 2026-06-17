@@ -9,6 +9,9 @@ import { AdminDashboardPage } from "../pages/AdminDashboardPage";
 import { StoreOwnerDashboardPage } from "../pages/StoreOwnerDashboardPage";
 import { UserDashboardPage } from "../pages/UserDashboardPage";
 import { UsersPage } from "../pages/UsersPage";
+import { CreateStoreOwnerPage } from "../pages/CreateStoreOwnerPage";
+import { StoresPage } from "../pages/StoresPage";
+import { CreateStorePage } from "../pages/CreateStorePage";
 
 export function AppRoutes() {
   return (
@@ -42,6 +45,18 @@ export function AppRoutes() {
         <Route
           path="/users"
           element={<UsersPage />}
+        />
+        <Route
+          path="/create-store-owner"
+          element={<CreateStoreOwnerPage />}
+        />
+        <Route
+          path="/stores"
+          element={<StoresPage />}
+        />
+        <Route
+          path="/create-store"
+          element={<CreateStorePage />}
         />
       </Routes>
     </BrowserRouter>

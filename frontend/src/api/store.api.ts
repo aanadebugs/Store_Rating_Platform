@@ -1,12 +1,18 @@
 import { apiClient } from "./axios";
 
-export async function getUsers() {
+export interface CreateStoreRequest {
+  name: string;
+  email: string;
+  address: string;
+}
+
+export async function getStores() {
   const token =
     localStorage.getItem("accessToken");
 
   const response =
     await apiClient.get(
-      "/users",
+      "/stores",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -15,39 +21,6 @@ export async function getUsers() {
     );
 
   return response.data.data;
-}
-
-export interface CreateStoreOwnerRequest {
-  fullName: string;
-  email: string;
-  password: string;
-  address: string;
-}
-
-export async function createStoreOwner(
-  data: CreateStoreOwnerRequest
-) {
-  const token =
-    localStorage.getItem("accessToken");
-
-  const response =
-    await apiClient.post(
-      "/users/store-owner",
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-  return response.data.data;
-}
-
-export interface CreateStoreRequest {
-  name: string;
-  email: string;
-  address: string;
 }
 
 export async function createStore(

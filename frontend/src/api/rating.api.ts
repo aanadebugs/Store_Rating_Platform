@@ -1,65 +1,62 @@
 import { apiClient } from "./axios";
 
-export async function getUsers() {
+export interface CreateRatingRequest {
+  storeId: string;
+  rating: number;
+}
+
+export async function createRating(
+  data: CreateRatingRequest
+) {
+  const token =
+    localStorage.getItem("accessToken");
+
+  const response =
+    await apiClient.post(
+      "/ratings",
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+  return response.data.data;
+}
+
+export async function updateRating(
+  storeId: string,
+  rating: number
+) {
+  const token =
+    localStorage.getItem("accessToken");
+
+  const response =
+    await apiClient.put(
+      `/ratings/${storeId}`,
+      {
+        rating,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+  return response.data.data;
+}
+
+export async function getAverageRating(
+  storeId: string
+) {
   const token =
     localStorage.getItem("accessToken");
 
   const response =
     await apiClient.get(
-      "/users",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-  return response.data.data;
-}
-
-export interface CreateStoreOwnerRequest {
-  fullName: string;
-  email: string;
-  password: string;
-  address: string;
-}
-
-export async function createStoreOwner(
-  data: CreateStoreOwnerRequest
-) {
-  const token =
-    localStorage.getItem("accessToken");
-
-  const response =
-    await apiClient.post(
-      "/users/store-owner",
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-  return response.data.data;
-}
-
-export interface CreateStoreRequest {
-  name: string;
-  email: string;
-  address: string;
-}
-
-export async function createStore(
-  data: CreateStoreRequest
-) {
-  const token =
-    localStorage.getItem("accessToken");
-
-  const response =
-    await apiClient.post(
-      "/stores",
-      data,
+      `/ratings/store/${storeId}/average`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
