@@ -67,7 +67,7 @@ export class UserController {
     try {
       const user =
         await this.userService.getUserById(
-          request.params.id
+          request.params.id as string
         );
 
       response.status(HTTP_STATUS.OK).json({

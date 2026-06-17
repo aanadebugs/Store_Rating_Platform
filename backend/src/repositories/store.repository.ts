@@ -48,4 +48,7 @@ export class StoreRepository {
       },
     });
   }
+  async count(): Promise<number> {
+  return prismaClient.store.count();
+}
 }

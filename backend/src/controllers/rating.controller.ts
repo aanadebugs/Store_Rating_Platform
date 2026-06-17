@@ -1,31 +1,33 @@
 import { NextFunction, Response } from "express";
 
-import { StoreService } from "../services/store.service";
+import { RatingService } from "../services/rating.service";
 
-import { createStoreSchema } from "../validations/store.validation";
+import {
+  createRatingSchema,
+  updateRatingSchema,
+} from "../validations/rating.validation";
 
 import { HTTP_STATUS } from "../constants/http-status.constants";
 
 import { AuthenticatedRequest } from "../types/authenticated-request.type";
 
-export class StoreController {
+export class RatingController {
   constructor(
-    private readonly storeService: StoreService
+    private readonly ratingService: RatingService
   ) {}
 
-  createStore = async (
+  createRating = async (
     request: AuthenticatedRequest,
     response: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
-      const data =
-        createStoreSchema.parse(
-          request.body
-        );
+      const data = createRatingSchema.parse(
+        request.body
+      );
 
-      const store =
-        await this.storeService.createStore(
+      const rating =
+        await this.ratingService.createRating(
           request.user!.userId,
           data
         );
@@ -34,45 +36,55 @@ export class StoreController {
         .status(HTTP_STATUS.CREATED)
         .json({
           success: true,
-          data: store,
+          data: rating,
         });
     } catch (error) {
       next(error);
     }
   };
 
-  getAllStores = async (
+  updateRating = async (
     request: AuthenticatedRequest,
     response: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
-      const stores =
-        await this.storeService.getAllStores();
+      const data = updateRatingSchema.parse(
+        request.body
+      );
+
+      const rating =
+        await this.ratingService.updateRating(
+          request.user!.userId,
+          request.params.storeId as string,
+          data
+        );
 
       response.status(HTTP_STATUS.OK).json({
         success: true,
-        data: stores,
+        data: rating,
       });
     } catch (error) {
       next(error);
     }
   };
 
-  getStoreById = async (
+  getAverageRating = async (
     request: AuthenticatedRequest,
     response: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
-      const store =
-        await this.storeService.getStoreById(
-          request.params.id as string
+      const averageRating =
+        await this.ratingService.getAverageRating(
+          request.params.storeId as string
         );
 
       response.status(HTTP_STATUS.OK).json({
         success: true,
-        data: store,
+        data: {
+          averageRating,
+        },
       });
     } catch (error) {
       next(error);
