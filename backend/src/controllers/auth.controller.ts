@@ -1,9 +1,14 @@
-import { NextFunction, Request, Response } from "express";
+import {
+  NextFunction,
+  Request,
+  Response,
+} from "express";
 
 import { AuthService } from "../services/auth.service";
 
 import {
   createAdminSchema,
+  createUserSchema,
   loginSchema,
 } from "../validations/auth.validation";
 
@@ -21,14 +26,19 @@ export class AuthController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const data = loginSchema.parse(
-        request.body
-      );
+      const data =
+        loginSchema.parse(
+          request.body
+        );
 
       const result =
-        await this.authService.login(data);
+        await this.authService.login(
+          data
+        );
 
-      response.status(HTTP_STATUS.OK).json({
+      response.status(
+        HTTP_STATUS.OK
+      ).json({
         success: true,
         data: result,
       });
@@ -54,11 +64,42 @@ export class AuthController {
         );
 
       response
-        .status(HTTP_STATUS.CREATED)
+        .status(
+          HTTP_STATUS.CREATED
+        )
         .json({
           success: true,
           message:
             APPLICATION_MESSAGES.USER.CREATED,
+          data: user,
+        });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  createUser = async (
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const data =
+        createUserSchema.parse(
+          request.body
+        );
+
+      const user =
+        await this.authService.createUser(
+          data
+        );
+
+      response
+        .status(
+          HTTP_STATUS.CREATED
+        )
+        .json({
+          success: true,
           data: user,
         });
     } catch (error) {

@@ -9,11 +9,13 @@ import { UserRepository } from "../repositories/user.repository";
 import {
   CreateAdminDto,
   CreateStoreOwnerDto,
+  CreateUserDto,
   LoginDto,
 } from "../validations/auth.validation";
 
 import { ApiError } from "../utils/api-error";
 import { generateAccessToken } from "../utils/jwt.util";
+
 import {
   hashPassword,
   verifyPassword,
@@ -40,7 +42,9 @@ export class AuthService {
     }
 
     const passwordHash =
-      await hashPassword(data.password);
+      await hashPassword(
+        data.password
+      );
 
     return this.userRepository.create({
       fullName: data.fullName,
@@ -67,7 +71,9 @@ export class AuthService {
     }
 
     const passwordHash =
-      await hashPassword(data.password);
+      await hashPassword(
+        data.password
+      );
 
     return this.userRepository.create({
       fullName: data.fullName,
@@ -78,12 +84,41 @@ export class AuthService {
     });
   }
 
+  async createUser(
+    data: CreateUserDto
+  ): Promise<User> {
+    const existingUser =
+      await this.userRepository.findByEmail(
+        data.email
+      );
+
+    if (existingUser) {
+      throw new ApiError(
+        HTTP_STATUS.CONFLICT,
+        APPLICATION_MESSAGES.USER.EMAIL_ALREADY_EXISTS
+      );
+    }
+
+    const passwordHash =
+      await hashPassword(
+        data.password
+      );
+
+    return this.userRepository.create({
+      fullName: data.fullName,
+      email: data.email,
+      passwordHash,
+      address: data.address,
+      role: USER_ROLES.USER,
+    });
+  }
+
   async login(
-  data: LoginDto
+    data: LoginDto
   ): Promise<{
-  accessToken: string;
-  role: string;
-  userId: string;
+    accessToken: string;
+    role: string;
+    userId: string;
   }> {
     const user =
       await this.userRepository.findByEmail(
@@ -121,7 +156,7 @@ export class AuthService {
 
     return {
       accessToken,
-      role:user.role,
+      role: user.role,
       userId: user.id,
     };
   }

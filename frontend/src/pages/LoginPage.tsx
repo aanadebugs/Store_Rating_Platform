@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom";
 
 import { login } from "../api/auth.api";
 
@@ -88,6 +91,8 @@ export function LoginPage() {
           />
         </div>
 
+        <br />
+
         <div>
           <input
             type="password"
@@ -102,6 +107,8 @@ export function LoginPage() {
           />
         </div>
 
+        <br />
+
         <button type="submit">
           Login
         </button>
@@ -110,6 +117,16 @@ export function LoginPage() {
       {error && (
         <p>{error}</p>
       )}
+
+      <br />
+
+      <p>
+        Don't have an account?
+      </p>
+
+      <Link to="/register">
+        Register
+      </Link>
     </div>
   );
 }

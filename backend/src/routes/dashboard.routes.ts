@@ -36,4 +36,13 @@ dashboardRouter.get(
   dashboardController.getAdminDashboard
 );
 
+dashboardRouter.get(
+  "/store-owner",
+  authenticationMiddleware,
+  authorizationMiddleware(
+    USER_ROLES.STORE_OWNER
+  ),
+  dashboardController.getStoreOwnerDashboard
+);
+
 export { dashboardRouter };

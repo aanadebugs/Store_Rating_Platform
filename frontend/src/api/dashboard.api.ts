@@ -1,15 +1,18 @@
 import { apiClient } from "./axios";
 
-export async function getAdminDashboard() {
+export async function getStoreOwnerDashboard() {
   const token =
-    localStorage.getItem("accessToken");
+    localStorage.getItem(
+      "accessToken"
+    );
 
   const response =
     await apiClient.get(
-      "/dashboard/admin",
+      "/dashboard/store-owner",
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization:
+            `Bearer ${token}`,
         },
       }
     );

@@ -27,4 +27,9 @@ authRouter.post(
   authController.createAdmin
 );
 
+authRouter.post(
+  "/register",
+  authController.createUser
+);
+
 export { authRouter };

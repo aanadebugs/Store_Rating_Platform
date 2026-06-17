@@ -1,4 +1,7 @@
-import { Prisma, Store } from "@prisma/client";
+import {
+  Prisma,
+  Store,
+} from "@prisma/client";
 
 import { prismaClient } from "../database/prismaClient";
 
@@ -48,7 +51,21 @@ export class StoreRepository {
       },
     });
   }
+
+  async getStoreWithRatings(
+    ownerId: string
+  ) {
+    return prismaClient.store.findUnique({
+      where: {
+        ownerId,
+      },
+      include: {
+        ratings: true,
+      },
+    });
+  }
+
   async count(): Promise<number> {
-  return prismaClient.store.count();
-}
+    return prismaClient.store.count();
+  }
 }

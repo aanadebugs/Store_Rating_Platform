@@ -9,7 +9,9 @@ export async function createRating(
   data: CreateRatingRequest
 ) {
   const token =
-    localStorage.getItem("accessToken");
+    localStorage.getItem(
+      "accessToken"
+    );
 
   const response =
     await apiClient.post(
@@ -17,7 +19,8 @@ export async function createRating(
       data,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization:
+            `Bearer ${token}`,
         },
       }
     );
@@ -30,7 +33,9 @@ export async function updateRating(
   rating: number
 ) {
   const token =
-    localStorage.getItem("accessToken");
+    localStorage.getItem(
+      "accessToken"
+    );
 
   const response =
     await apiClient.put(
@@ -40,7 +45,8 @@ export async function updateRating(
       },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization:
+            `Bearer ${token}`,
         },
       }
     );
@@ -48,21 +54,46 @@ export async function updateRating(
   return response.data.data;
 }
 
+export async function getUserRating(
+  storeId: string
+) {
+  const token =
+    localStorage.getItem(
+      "accessToken"
+    );
+
+  const response =
+    await apiClient.get(
+      `/ratings/user/${storeId}`,
+      {
+        headers: {
+          Authorization:
+            `Bearer ${token}`,
+        },
+      }
+    );
+
+  return response.data.data.rating;
+}
+
 export async function getAverageRating(
   storeId: string
 ) {
   const token =
-    localStorage.getItem("accessToken");
+    localStorage.getItem(
+      "accessToken"
+    );
 
   const response =
     await apiClient.get(
       `/ratings/store/${storeId}/average`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization:
+            `Bearer ${token}`,
         },
       }
     );
 
-  return response.data.data;
+  return response.data.data.averageRating;
 }

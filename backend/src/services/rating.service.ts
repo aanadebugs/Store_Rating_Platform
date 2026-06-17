@@ -93,4 +93,19 @@ export class RatingService {
       (total / ratings.length).toFixed(2)
     );
   }
+
+  async getUserRating(
+  userId: string,
+  storeId: string 
+  ): Promise<number | null> {
+    const rating =
+      await this.ratingRepository.findUserRating(
+        userId,
+        storeId
+      );
+
+    return rating
+      ? rating.rating
+      : null;
+  }
 }

@@ -25,4 +25,49 @@ export class DashboardService {
       totalRatings,
     };
   }
+
+  async getStoreOwnerDashboard(
+    ownerId: string
+  ) {
+    const store =
+      await this.storeRepository.getStoreWithRatings(
+        ownerId
+      );
+
+    if (!store) {
+      return {
+        totalStores: 0,
+        totalRatings: 0,
+        averageRating: 0,
+        storeName: "",
+      };
+    }
+
+    const totalRatings =
+      store.ratings.length;
+
+    const averageRating =
+      totalRatings === 0
+        ? 0
+        : Number(
+            (
+              store.ratings.reduce(
+                (
+                  total,
+                  rating
+                ) =>
+                  total +
+                  rating.rating,
+                0
+              ) / totalRatings
+            ).toFixed(2)
+          );
+
+    return {
+      totalStores: 1,
+      totalRatings,
+      averageRating,
+      storeName: store.name,
+    };
+  }
 }

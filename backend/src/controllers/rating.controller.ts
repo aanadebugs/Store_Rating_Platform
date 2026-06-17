@@ -90,4 +90,28 @@ export class RatingController {
       next(error);
     }
   };
+  getUserRating = async (
+  request: AuthenticatedRequest,
+  response: Response,
+  next: NextFunction
+  ): Promise<void> => {
+    try {
+      const rating =
+        await this.ratingService.getUserRating(
+          request.user!.userId,
+          request.params.storeId as string
+        );
+
+      response.status(
+        HTTP_STATUS.OK
+      ).json({
+        success: true,
+        data: {
+          rating,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

@@ -45,9 +45,20 @@ ratingRouter.put(
 );
 
 ratingRouter.get(
+  "/user/:storeId",
+  authenticationMiddleware,
+  authorizationMiddleware(
+    USER_ROLES.USER
+  ),
+  ratingController.getUserRating
+);
+
+ratingRouter.get(
   "/store/:storeId/average",
   authenticationMiddleware,
   ratingController.getAverageRating
 );
+
+
 
 export { ratingRouter };

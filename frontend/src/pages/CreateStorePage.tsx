@@ -24,19 +24,10 @@ export function CreateStorePage() {
         address,
       });
 
-      alert(
-        "Store created successfully"
-      );
-
-      setName("");
-      setEmail("");
-      setAddress("");
+      alert("Store created successfully");
     } catch (error) {
       console.error(error);
-
-      alert(
-        "Failed to create store"
-      );
+      alert("Failed to create store");
     }
   }
 
@@ -45,46 +36,37 @@ export function CreateStorePage() {
       <h1>Create Store</h1>
 
       <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            placeholder="Store Name"
-            value={name}
-            onChange={(event) =>
-              setName(
-                event.target.value
-              )
-            }
-          />
-        </div>
+        <input
+          placeholder="Store Name"
+          value={name}
+          onChange={(e) =>
+            setName(e.target.value)
+          }
+        />
 
         <br />
-
-        <div>
-          <input
-            placeholder="Store Email"
-            value={email}
-            onChange={(event) =>
-              setEmail(
-                event.target.value
-              )
-            }
-          />
-        </div>
-
         <br />
 
-        <div>
-          <input
-            placeholder="Store Address"
-            value={address}
-            onChange={(event) =>
-              setAddress(
-                event.target.value
-              )
-            }
-          />
-        </div>
+        <input
+          placeholder="Store Email"
+          value={email}
+          onChange={(e) =>
+            setEmail(e.target.value)
+          }
+        />
 
+        <br />
+        <br />
+
+        <input
+          placeholder="Store Address"
+          value={address}
+          onChange={(e) =>
+            setAddress(e.target.value)
+          }
+        />
+
+        <br />
         <br />
 
         <button type="submit">

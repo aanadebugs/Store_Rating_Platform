@@ -1,82 +1,56 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
-import { getAdminDashboard } from "../api/dashboard.api";
-
-interface DashboardData {
-  totalUsers: number;
-  totalStores: number;
-  totalRatings: number;
-}
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom";
 
 export function AdminDashboardPage() {
-  const [dashboardData, setDashboardData] =
-    useState<DashboardData | null>(null);
+  const navigate =
+    useNavigate();
 
-  useEffect(() => {
-    async function loadDashboard() {
-      try {
-        const data =
-          await getAdminDashboard();
+  function logout() {
+    localStorage.clear();
 
-        setDashboardData(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    loadDashboard();
-  }, []);
+    navigate("/");
+  }
 
   return (
     <div>
-      <h1>Admin Dashboard</h1>
+      <h1>
+        Admin Dashboard
+      </h1>
 
-      {dashboardData && (
-        <>
-          <h3>
-            Total Users: {dashboardData.totalUsers}
-          </h3>
-
-          <h3>
-            Total Stores: {dashboardData.totalStores}
-          </h3>
-
-          <h3>
-            Total Ratings: {dashboardData.totalRatings}
-          </h3>
-        </>
-      )}
+      <button
+        onClick={logout}
+      >
+        Logout
+      </button>
 
       <br />
-
-      <div>
-        <Link to="/users">
-          <button>
-            View Users
-          </button>
-        </Link>
-      </div>
-
       <br />
 
-      <div>
-        <Link to="/create-store-owner">
-          <button>
-            Create Store Owner
-          </button>
-        </Link>
-      </div>
+      <Link to="/users">
+        <button>
+          View Users
+        </button>
+      </Link>
 
       <br />
+      <br />
 
-      <div>
-        <Link to="/stores">
-          <button>
-            View Stores
-          </button>
-        </Link>
-      </div>
+      <Link to="/create-store-owner">
+        <button>
+          Create Store Owner
+        </button>
+      </Link>
+
+      <br />
+      <br />
+
+      <Link to="/stores">
+        <button>
+          View Stores
+        </button>
+      </Link>
     </div>
   );
 }

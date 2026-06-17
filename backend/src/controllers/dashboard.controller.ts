@@ -8,6 +8,8 @@ import { DashboardService } from "../services/dashboard.service";
 
 import { HTTP_STATUS } from "../constants/http-status.constants";
 
+import { AuthenticatedRequest } from "../types/authenticated-request.type";
+
 export class DashboardController {
   constructor(
     private readonly dashboardService: DashboardService
@@ -22,7 +24,31 @@ export class DashboardController {
       const dashboardData =
         await this.dashboardService.getAdminDashboard();
 
-      response.status(HTTP_STATUS.OK).json({
+      response.status(
+        HTTP_STATUS.OK
+      ).json({
+        success: true,
+        data: dashboardData,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  getStoreOwnerDashboard = async (
+    request: AuthenticatedRequest,
+    response: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const dashboardData =
+        await this.dashboardService.getStoreOwnerDashboard(
+          request.user!.userId
+        );
+
+      response.status(
+        HTTP_STATUS.OK
+      ).json({
         success: true,
         data: dashboardData,
       });
