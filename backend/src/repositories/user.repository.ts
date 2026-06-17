@@ -3,7 +3,9 @@ import { Prisma, User } from "@prisma/client";
 import { prismaClient } from "../database/prismaClient";
 
 export class UserRepository {
-  async findById(id: string): Promise<User | null> {
+  async findById(
+    id: string
+  ): Promise<User | null> {
     return prismaClient.user.findUnique({
       where: {
         id,
@@ -11,7 +13,9 @@ export class UserRepository {
     });
   }
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findByEmail(
+    email: string
+  ): Promise<User | null> {
     return prismaClient.user.findUnique({
       where: {
         email,
@@ -25,5 +29,17 @@ export class UserRepository {
     return prismaClient.user.create({
       data,
     });
+  }
+
+  async findAll(): Promise<User[]> {
+    return prismaClient.user.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
+
+  async count(): Promise<number> {
+    return prismaClient.user.count();
   }
 }
