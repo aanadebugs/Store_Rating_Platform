@@ -14,7 +14,7 @@ export function AdminDashboardPage() {
   }
 
   return (
-    <div>
+    <div className="dashboard-card">
       <h1>
         Admin Dashboard
       </h1>

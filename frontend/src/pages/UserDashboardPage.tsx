@@ -14,7 +14,7 @@ export function UserDashboardPage() {
   }
 
   return (
-    <div>
+    <div className="dashboard-card">
       <h1>
         User Dashboard
       </h1>

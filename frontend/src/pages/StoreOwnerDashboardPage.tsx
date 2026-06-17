@@ -40,7 +40,7 @@ export function StoreOwnerDashboardPage() {
   }
 
   return (
-    <div>
+    <div className="dashboard-card">
       <h1>
         Store Owner Dashboard
       </h1>

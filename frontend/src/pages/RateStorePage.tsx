@@ -89,12 +89,7 @@ export function RateStorePage() {
       <h1>Rate Store</h1>
 
       <form onSubmit={handleSubmit}>
-        <div
-          style={{
-            fontSize: "48px",
-            cursor: "pointer",
-          }}
-        >
+        <div className="star-rating">
           {[1, 2, 3, 4, 5].map(
             (star) => (
               <span

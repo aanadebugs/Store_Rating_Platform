@@ -49,7 +49,7 @@ export function RegisterPage() {
   }
 
   return (
-    <div>
+    <div className="login-container">
       <h1>Register</h1>
 
       <form onSubmit={handleSubmit}>

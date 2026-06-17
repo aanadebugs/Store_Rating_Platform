@@ -69,7 +69,7 @@ export function LoginPage() {
   }
 
   return (
-    <div>
+    <div className="login-container">
       <h1>
         Store Rating Platform
       </h1>
