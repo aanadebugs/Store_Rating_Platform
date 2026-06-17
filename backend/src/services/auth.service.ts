@@ -79,9 +79,11 @@ export class AuthService {
   }
 
   async login(
-    data: LoginDto
+  data: LoginDto
   ): Promise<{
-    accessToken: string;
+  accessToken: string;
+  role: string;
+  userId: string;
   }> {
     const user =
       await this.userRepository.findByEmail(
@@ -119,6 +121,8 @@ export class AuthService {
 
     return {
       accessToken,
+      role:user.role,
+      userId: user.id,
     };
   }
 }
